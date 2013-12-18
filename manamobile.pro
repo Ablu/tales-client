@@ -31,6 +31,7 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += src
+!tizen:!android:SUBDIRS += tests
 !tizen:SUBDIRS += example
 
 OTHER_FILES += \
