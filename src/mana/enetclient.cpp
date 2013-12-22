@@ -56,6 +56,7 @@ ENetClient::~ENetClient()
 
 void ENetClient::connect(const QString &hostName, quint16 port)
 {
+    qWarning() << Q_FUNC_INFO << "test";
     if (debug_enetclient)
         qDebug() << "(ENetClient) Connecting to" << hostName << port;
 

@@ -1,2 +1,2 @@
-#include <QtQuickTest/quicktest.h>
+#include <QtQuickTest/QtQuickTest>
 QUICK_TEST_MAIN(TestCases)
