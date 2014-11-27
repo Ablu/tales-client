@@ -82,7 +82,8 @@ Item {
         LeftPanel {
             id: leftPanel
             anchors.top: parent.top
-            anchors.bottom: chatLog.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 100
             anchors.topMargin: 3
             width: viewport.width / 2 - 22 - 32
         }
@@ -90,7 +91,8 @@ Item {
         RightPanel {
             id: rightPanel
             anchors.top: parent.top
-            anchors.bottom: chatLog.top
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 100
             anchors.topMargin: 3
             width: viewport.width / 2 - 22 - 32
         }
