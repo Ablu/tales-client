@@ -4,7 +4,11 @@ import Mana 1.0
 Item {
     property int maxHeight;
     property bool recentMessages: false
-    height: recentMessages ? 100 : 20
+    height: recentMessages ? 100 : 45
+
+    Behavior on height {
+        NumberAnimation { duration: 100 }
+    }
 
     Timer {
         id: recentActivityTimer
