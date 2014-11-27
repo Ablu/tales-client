@@ -3,12 +3,25 @@ import Mana 1.0
 
 Item {
     property int maxHeight;
-    height: 100
+    property bool recentMessages: false
+    height: recentMessages ? 100 : 20
+
+    Timer {
+        id: recentActivityTimer
+        interval: 1000 * 10
+        repeat: false
+
+        onTriggered: {
+            recentMessages = false;
+        }
+    }
 
     ListModel { id: chatModel }
     Connections {
         target: gameClient
         onChatMessage: {
+            recentMessages = true;
+            recentActivityTimer.restart();
             var name = being ? being.name : qsTr("Server");
             chatModel.insert(0, { name: name, message: message });
             chatView.positionViewAtBeginning();
