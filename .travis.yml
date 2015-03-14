@@ -3,7 +3,7 @@ compiler:
   - gcc
   - clang
 before_install:
-  - echo "deb http://ftp.de.debian.org/debian experimental main" >> /etc/apt/sources.list
+  - sudo echo "deb http://ftp.de.debian.org/debian experimental main" >> /etc/apt/sources.list
   - sudo apt-get update -qq
   - sudo apt-get install qt5-default
 script:
