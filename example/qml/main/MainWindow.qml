@@ -17,7 +17,9 @@ Image {
             state = "serverSelect";
         } else {
             serverName = customServer;
+            console.error('state: ' + accountClient.state);
             client.connect(customServer, customPort);
+            console.error('state: ' + accountClient.state);
         }
 
         characterChosen = false;
@@ -64,6 +66,11 @@ Image {
         onLoggedOut: {
             if (state === "game")
                 accountClient.disconnect();
+        }
+        onDisconnected: {
+            if (state !== "game") {
+                initialize();
+            }
         }
     }
 
@@ -125,7 +132,10 @@ Image {
         currentPage = newPage;
     }
 
-    Component.onCompleted: initialize();
+    Component.onCompleted: {
+        console.error('state: ' + accountClient.state);
+        initialize();
+    }
 
     Component { id: serverPage; ServerPage {} }
     Component { id: loginPage; LoginPage {} }

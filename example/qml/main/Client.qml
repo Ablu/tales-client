@@ -71,6 +71,11 @@ ApplicationWindow {
         }
 
         onLoggedOut: loggedIn = false;
+        onDisconnected: {
+            if (!gameClient.connected) {
+                loggedIn = false;
+            }
+        }
     }
     property ChatClient chatClient: ChatClient {
         onConnected: authenticate(accountClient.token);
