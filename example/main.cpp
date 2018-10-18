@@ -26,6 +26,7 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <QCommandLineParser>
+#include <QDirIterator>
 
 #if !defined(Q_OS_ANDROID) && !defined(Q_OS_LINUX_TIZEN)
 static QString adjustSharePath(const QString &path)
@@ -107,24 +108,10 @@ int main(int argc, char *argv[])
     context->setContextProperty(
         "characterIndex", commandLineParser.value("character").toInt());
 
-#ifdef Q_OS_ANDROID
-    engine.addImportPath(QLatin1String("assets:/qml"));
-    engine.addPluginPath(QDir::homePath() + "/../lib");
-    engine.load(QUrl(QLatin1String("assets:/qml/main/mobile.qml")));
-#elif defined(Q_OS_LINUX_TIZEN)
-    engine.addImportPath(QLatin1String("../data/qml"));
-    engine.load(app.applicationDirPath() +
-                QLatin1String("/../data/qml/main/mobile.qml"));
-#else
-#ifdef Q_OS_OSX
-    const QString importPath = "/../Resources/qml/";
-#else
-    const QString importPath = "/../lib/libmana/qml/";
-#endif
-    engine.addImportPath(adjustSharePath(app.applicationDirPath() +
-                         importPath));
-    engine.load(adjustSharePath(QLatin1String("qml/main/mobile.qml")));
-#endif
+    engine.addImportPath(QLatin1String("assets:/qml/"));
+    engine.addPluginPath(QDir::homePath() + "/../lib/");
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main/mobile.qml")));
+
 
     QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     if (!window) {

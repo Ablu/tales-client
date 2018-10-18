@@ -171,13 +171,13 @@ HEADERS += \
     tiled/tileset.h
 
 
-folder_Mana.source = mana/qml/Mana
-win*:folder_Mana.target = ../lib/libmana/qml/
-else:linux*:!tizen:!android:folder_Mana.target = ../lib/libmana/qml/
-else:macx:folder_Mana.target = ../example/tales.app/Contents/Resources/qml/
-else:folder_Mana.target = qml/
-DEPLOYMENTFOLDERS = folder_Mana
+target.path = $${PREFIX}/assets/qml/Mana/
+folder_Mana.files = mana/qml/Mana/*
+win*:folder_Mana.path = ../lib/libmana/qml/
+else:linux*:!tizen:!android:folder_Mana.path = ../lib/libmana/qml/
+else:macx:folder_Mana.path = ../example/tales.app/Contents/Resources/qml/
+else:folder_Mana.path = $${PREFIX}/assets/qml/Mana/
+INSTALLS += target folder_Mana
 
-# Please do not modify the following two lines. Required for deployment.
-include(../example/qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
+RESOURCES += \
+    mana.qrc

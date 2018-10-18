@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>mana/qml/Mana/qmldir</file>
+        <file>mana/qml/Mana/ServerListModel.qml</file>
+    </qresource>
+</RCC>
