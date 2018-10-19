@@ -1,4 +1,9 @@
+stages:
+  - build
+  - deploy
+
 apk:
+  stage: build
   image: registry.gitlab.com/tales/tales-client-ci
   script:
   - export VERSION_NUMBER=$(git log --pretty=oneline | wc -l)
@@ -13,3 +18,16 @@ apk:
   artifacts:
     paths:
     - android-build/build/outputs/apk/*.apk
+
+gplay:
+  stage: deploy
+  image: python:2
+  script:
+  - echo $SERVICE_JSON | base64 -d > /service.json
+  # https://github.com/nassendelft/google-play-cli/pull/1
+  # https://github.com/nassendelft/google-play-cli/pull/2
+  - pip install git+https://github.com/Ablu/google-play-cli.git@combined-fix
+  - pip install oauth2client
+  - gplay upload --service-json=/service.json --track=alpha  org.sourceoftales.client android-build/build/outputs/apk/*.apk
+  only:
+  - master
