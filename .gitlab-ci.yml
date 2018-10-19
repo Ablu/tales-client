@@ -1,0 +1,11 @@
+apk:
+  image: registry.gitlab.com/tales/tales-client-ci
+  script:
+  - cp -r /libs/* example/android/libs/
+  - build-android-gradle-project manamobile.pro || true # create deployment.json (qtci only considers it in the root)
+  - cp example/*.json ./
+  - MAKEFLAGS=-j$(nproc) build-android-gradle-project manamobile.pro
+
+  artifacts:
+    paths:
+    - android-build/build/outputs/apk/*.apk
