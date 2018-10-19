@@ -1,6 +1,8 @@
 apk:
   image: registry.gitlab.com/tales/tales-client-ci
   script:
+  - export VERSION_NUMBER=$(git log --pretty=oneline | wc -l)
+  - sed -i "s/android:versionCode=\"[0-9]\+\"/android:versionCode=\"$VERSION_NUMBER\"/" example/android/AndroidManifest.xml
   - if [ -n "$ANDROID_KEYSTORE_FILE" ]; then echo "$ANDROID_KEYSTORE_FILE" | base64 -d > android_release.keystore; export KEYSTORE="$PWD/android_release.keystore"; fi
   - mkdir -p example/android/libs/
   - cp -r /libs/* example/android/libs/
