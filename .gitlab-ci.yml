@@ -2,6 +2,7 @@ apk:
   image: registry.gitlab.com/tales/tales-client-ci
   script:
   - if [ -n "$ANDROID_KEYSTORE_FILE" ]; then echo "$ANDROID_KEYSTORE_FILE" | base64 -d > android_release.keystore; export KEYSTORE="$(PWD)/android_release.keystore"; fi
+  - mkdir -p example/android/libs/
   - cp -r /libs/* example/android/libs/
   - build-android-gradle-project manamobile.pro || true # create deployment.json (qtci only considers it in the root)
   - cp example/*.json ./
