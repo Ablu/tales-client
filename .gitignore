@@ -1,33 +1,8 @@
-# Build artifacts
-*.o
-ui_*.h
-moc_*.cpp
-Makefile*
-example/tales
-/qml/
-
 # Qt Creator artifacts
 *.pro.user*
-*.qbs.user*
 
 # Autosaves
 *.autosave
 
 # Android
-android/local.properties
-android/assets/
-android/bin/
-android/gen/
-android/libs/
-android/qml/
-
-# eclipse files
-.project
-
-# git leftovers
-*.orig
-*.BACKUP.*.*
-*.BASE.*.*
-*.LOCAL.*.*
-*.REMOTE.*.*
-
+**/android/libs/

@@ -29,25 +29,14 @@
 #include <QCommandLineParser>
 #include <QDirIterator>
 
-#if !defined(Q_OS_ANDROID) && !defined(Q_OS_LINUX_TIZEN)
-static QString adjustSharePath(const QString &path)
+#include "mana/manaplugin.h"
+
+static void registerManaPlugin(QQmlApplicationEngine& engine)
 {
-#if defined(Q_OS_MAC)
-    if (!QDir::isAbsolutePath(path))
-        return QString::fromLatin1("%1/../Resources/%2")
-                .arg(QCoreApplication::applicationDirPath(), path);
-#elif defined(Q_OS_QNX)
-    if (!QDir::isAbsolutePath(path))
-        return QString::fromLatin1("app/native/%1").arg(path);
-#elif (defined(Q_OS_UNIX) || defined(Q_OS_WIN)) && !defined(Q_OS_ANDROID)
-    const QString pathInInstallDir =
-            QString::fromLatin1("%1/../share/tales-client/%2").arg(QCoreApplication::applicationDirPath(), path);
-    if (QFileInfo(pathInInstallDir).exists())
-        return pathInInstallDir;
-#endif
-    return path;
+    ManaPlugin manaPlugin;
+    manaPlugin.registerTypes("Mana");
+    manaPlugin.initializeEngine(&engine, "Mana");
 }
-#endif
 
 int main(int argc, char *argv[])
 {
@@ -114,10 +103,10 @@ int main(int argc, char *argv[])
     context->setContextProperty(
         "characterIndex", commandLineParser.value("character").toInt());
 
-    engine.addImportPath(QLatin1String("assets:/qml/"));
-    engine.addPluginPath(QDir::homePath() + "/../lib/");
-    engine.load(QUrl(QStringLiteral("qrc:/qml/main/mobile.qml")));
+    registerManaPlugin(engine);
 
+    engine.addImportPath("qrc:/qml/main/");
+    engine.load(QStringLiteral("qrc:/qml/main/mobile.qml"));
 
     QQuickWindow *window = qobject_cast<QQuickWindow *>(engine.rootObjects().first());
     if (!window) {

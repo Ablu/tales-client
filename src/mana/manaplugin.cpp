@@ -59,6 +59,9 @@ void ManaPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
 {
     Q_UNUSED(uri)
 
+    Q_INIT_RESOURCE(mana);
+    engine->addImportPath("qrc:/mana/qml/");
+
     Mana::ResourceManager *resourceManager = new Mana::ResourceManager(engine);
     Mana::AbilityDB *abilityDB = new Mana::AbilityDB(engine);
     Mana::AttributeDB *attributeDB = new Mana::AttributeDB(engine);

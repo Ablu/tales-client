@@ -1,11 +1,7 @@
 TEMPLATE = lib
-CONFIG += qt plugin
+CONFIG += qt plugin staticlib
 linux*:QMAKE_LFLAGS += $$QMAKE_LFLAGS_NOUNDEF
 
-win*:DESTDIR = ../lib/libmana/qml/Mana/
-else:linux*:!tizen:!android:DESTDIR = ../lib/libmana/qml/Mana/
-else:macx:DESTDIR = ../example/tales.app/Contents/Resources/qml/Mana
-else:DESTDIR = qml/Mana/
 TARGET = mana
 
 QT += network qml quick
@@ -170,14 +166,7 @@ HEADERS += \
     tiled/tilelayer.h \
     tiled/tileset.h
 
-
-target.path = $${PREFIX}/assets/qml/Mana/
-folder_Mana.files = mana/qml/Mana/*
-win*:folder_Mana.path = ../lib/libmana/qml/
-else:linux*:!tizen:!android:folder_Mana.path = ../lib/libmana/qml/
-else:macx:folder_Mana.path = ../example/tales.app/Contents/Resources/qml/
-else:folder_Mana.path = $${PREFIX}/assets/qml/Mana/
-INSTALLS += target folder_Mana
+INSTALLS += target
 
 RESOURCES += \
     mana.qrc

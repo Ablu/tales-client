@@ -1,18 +1,16 @@
 TEMPLATE=app
-# Add more folders to ship with the application, here
-folder_main.source = qml/main
-win*|linux*:!tizen:!android:folder_main.target = ../share/tales-client/qml
-else:folder_main.target = qml
-DEPLOYMENTFOLDERS = folder_main
 
-win*|linux*:!tizen:!android:DESTDIR=../bin/
 SOURCES += main.cpp
-RESOURCES += qml.qrc
+RESOURCES += main.qrc
 
 TARGET = tales
 QT += qml quick
 
 CONFIG += c++11
+
+INCLUDEPATH += $$PWD/../src/
+
+LIBS += -L../src/ -lmana -lz
 
 OTHER_FILES += \
     tizen/manifest.xml \
@@ -20,21 +18,7 @@ OTHER_FILES += \
     android/layout/splash.xml \
     android/res/values/strings.xml
 
-tizen {
-    TEMPLATE=app
-
-    tizen_shared.files = shared/res
-    CONFIG += TIZEN_STANDALONE_PACKAGE
-    TIZEN_BUNDLED_QT_LIBS=Qt5Core Qt5DBus Qt5Qml Qt5Quick Qt5Widgets Qt5Gui Qt5Network
-
-    tizen_data.files += $$_PRO_FILE_PWD_/qml
-    tizen_data.files += $$_PRO_FILE_PWD_/../src/qml
-
-    load(tizen_app)
-}
-
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 
 DISTFILES += \
     android/AndroidManifest.xml
-
