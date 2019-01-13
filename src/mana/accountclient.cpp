@@ -123,7 +123,7 @@ void AccountClient::logout()
     send(MessageOut(Protocol::PAMSG_LOGOUT));
 }
 
-void AccountClient::reconnect(const QString &token)
+void AccountClient::reconnect(const QByteArray &token)
 {
     MessageOut reconnectMessage(Protocol::PAMSG_RECONNECT);
     reconnectMessage.writeString(token, 32);
@@ -461,7 +461,7 @@ void AccountClient::handleCharacterSelectResponse(MessageIn &message)
     const int error = message.readInt8();
     if (error == ERRMSG_OK) {
         // Remember chat and game server hosts
-        mToken = message.readString(32);
+        mToken = message.readByteArray(32);
         mGameServerHost = message.readString();
         mGameServerPort = message.readInt16();
         mChatServerHost = message.readString();

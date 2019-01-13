@@ -39,7 +39,7 @@ public:
 
     bool authenticated() const { return mAuthenticated; }
 
-    Q_INVOKABLE void authenticate(const QString &token);
+    Q_INVOKABLE void authenticate(const QByteArray &token);
     Q_INVOKABLE void leave();
 
 signals:

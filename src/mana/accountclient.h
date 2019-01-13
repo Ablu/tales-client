@@ -43,7 +43,7 @@ class AccountClient : public ENetClient
 
     Q_PROPERTY(QString updateHost READ updateHost NOTIFY serverInfoChanged)
     Q_PROPERTY(QString dataUrl READ dataUrl NOTIFY serverInfoChanged)
-    Q_PROPERTY(QString token READ token NOTIFY tokenChanged)
+    Q_PROPERTY(QByteArray token READ token NOTIFY tokenChanged)
     Q_PROPERTY(QString chatServerHost READ chatServerHost NOTIFY chatServerChanged)
     Q_PROPERTY(quint16 chatServerPort READ chatServerPort NOTIFY chatServerChanged)
     Q_PROPERTY(QString gameServerHost READ gameServerHost NOTIFY gameServerChanged)
@@ -69,7 +69,7 @@ public:
 
     QString updateHost() const { return mUpdateHost; }
     QString dataUrl() const { return mDataUrl; }
-    QString token() const { return mToken; }
+    QByteArray token() const { return mToken; }
     QString gameServerHost() const { return mGameServerHost; }
     quint16 gameServerPort() const { return mGameServerPort; }
     QString chatServerHost() const { return mChatServerHost; }
@@ -94,7 +94,7 @@ public:
     Q_INVOKABLE void login(const QString &username,
                            const QString &password);
     Q_INVOKABLE void logout();
-    Q_INVOKABLE void reconnect(const QString &token);
+    Q_INVOKABLE void reconnect(const QByteArray &token);
 
     Q_INVOKABLE void createCharacter(const QString &name,
                                      int gender,
@@ -193,7 +193,7 @@ private:
 
     QString mUpdateHost;
     QString mDataUrl;
-    QString mToken;
+    QByteArray mToken;
     QString mGameServerHost;
     QString mChatServerHost;
     quint16 mGameServerPort;

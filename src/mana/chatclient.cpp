@@ -33,7 +33,7 @@ ChatClient::ChatClient(QObject *parent)
 {
 }
 
-void ChatClient::authenticate(const QString &token)
+void ChatClient::authenticate(const QByteArray &token)
 {
     // Send in the security token
     MessageOut msg(Protocol::PCMSG_CONNECT);

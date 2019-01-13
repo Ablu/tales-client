@@ -148,7 +148,7 @@ void GameClient::setPlayerName(const QString &name)
     emit playerNameChanged();
 }
 
-void GameClient::authenticate(const QString &token)
+void GameClient::authenticate(const QByteArray &token)
 {
     // Send in the security token
     MessageOut msg(Protocol::PGMSG_CONNECT);
@@ -632,7 +632,7 @@ void GameClient::handleDisconnectResponse(MessageIn &message)
     if (message.readInt8() != ERRMSG_OK)
         return;
 
-    mToken = message.readString(32);
+    mToken = message.readByteArray(32);
     emit tokenReceived(mToken);
 
     reset();
