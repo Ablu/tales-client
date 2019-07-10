@@ -25,6 +25,7 @@
 #include <QQmlContext>
 #include <QQuickWindow>
 #include <QScreen>
+#include <QSslSocket>
 #include <QCommandLineParser>
 #include <QDirIterator>
 
@@ -50,6 +51,11 @@ static QString adjustSharePath(const QString &path)
 
 int main(int argc, char *argv[])
 {
+    if (!QSslSocket::supportsSsl()) {
+        qDebug() << "SSL version used for build: " << QSslSocket::sslLibraryBuildVersionString();
+        qFatal("No SSL Support, resources loaded via SSL will fail!");
+    }
+
     QGuiApplication app(argc, argv);
 
     app.setApplicationName("Source of Tales");
