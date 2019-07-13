@@ -4,7 +4,7 @@ stages:
 
 apk:
   stage: build
-  image: registry.gitlab.com/tales/tales-client-ci
+  image: registry.gitlab.com/tales/tales-client-ci:qt-5.11.2-sdk-4333796-ndk-r15c-ssl-1.0.2p
   script:
   - export VERSION_NUMBER=$(git log --pretty=oneline | wc -l)
   - sed -i "s/android:versionCode=\"[0-9]\+\"/android:versionCode=\"$VERSION_NUMBER\"/" example/android/AndroidManifest.xml
