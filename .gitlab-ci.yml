@@ -17,7 +17,7 @@ apk:
 
   artifacts:
     paths:
-    - android-build/build/outputs/**/*.apk
+    - android-build/build/outputs/apk/*/*.apk
 
 gplay:
   stage: deploy
