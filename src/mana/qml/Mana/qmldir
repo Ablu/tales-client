@@ -1,3 +1,4 @@
 module Mana
 classname ManaPlugin
+plugin mana
 ServerListModel 1.0 ServerListModel.qml

@@ -21,12 +21,15 @@
 
 #include <QMap>
 #include <QObject>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class AbilityInfo : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(AbilityInfo)
+    QML_UNCREATABLE("Managed on C++ side")
 
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
@@ -75,6 +78,7 @@ private:
 class AbilityDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY abilitiesChanged)
 

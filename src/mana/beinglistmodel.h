@@ -21,16 +21,19 @@
 #define BEINGLISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
+
+#include "being.h"
 
 namespace Mana {
 
-class Being;
 class Character;
 class MessageIn;
 
 class BeingListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
     Q_ENUMS(BeingRoles)
 
 public:

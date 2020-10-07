@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 
 /**
  * An item that indicates something is happening.

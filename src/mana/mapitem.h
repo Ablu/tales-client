@@ -20,6 +20,9 @@
 #define MAPITEM_H
 
 #include <QQuickItem>
+#include <QQmlEngine>
+
+#include "resource/mapresource.h"
 
 namespace Tiled {
 class Map;
@@ -31,7 +34,6 @@ class TileLayer;
 namespace Mana {
 
 class ImageResource;
-class MapResource;
 class TileItem;
 class TileLayerItem;
 
@@ -41,6 +43,7 @@ class TileLayerItem;
 class MapItem : public QQuickItem
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(TileMap)
     Q_ENUMS(Status)
 
     Q_PROPERTY(Mana::MapResource *mapResource READ mapResource WRITE setMapResource NOTIFY mapChanged)

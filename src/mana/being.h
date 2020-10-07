@@ -21,18 +21,19 @@
 #define BEING_H
 
 #include <QMap>
+#include <QMetaType>
 #include <QObject>
 #include <QPointF>
-#include <QMetaType>
+#include <QQmlEngine>
 
 #include "protocol.h"
+#include "spritelistmodel.h"
 
 #include "resource/action.h"
 
 namespace Mana {
 
 class HairInfo;
-class SpriteListModel;
 
 /**
  * Class representing a being.
@@ -40,6 +41,8 @@ class SpriteListModel;
 class Being : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Being)
+    QML_UNCREATABLE("managed by C++")
 
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(int type READ type CONSTANT)

@@ -19,7 +19,6 @@
 #include "character.h"
 
 #include "protocol.h"
-#include "spritelistmodel.h"
 
 #include "resource/itemdb.h"
 #include "resource/hairdb.h"

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 Item {
@@ -129,7 +129,7 @@ Item {
             anchors.topMargin: 20;
             anchors.horizontalCenter: passwordEdit.horizontalCenter;
 
-            Button {
+            ManaButton {
                 id: cancelButton;
                 text: qsTr("Cancel");
                 visible: false;
@@ -138,7 +138,7 @@ Item {
                 KeyNavigation.up: passwordConfirmEdit;
                 KeyNavigation.right: loginButton;
             }
-            Button {
+            ManaButton {
                 id: loginButton;
                 text: qsTr("Login");
                 anchors.left: parent.left;
@@ -178,9 +178,9 @@ Item {
     Connections {
         target: accountClient;
 
-        onLoginFailed: errorLabel.showError(errorMessage);
-        onRegistrationFailed: errorLabel.showError(errorMessage);
-        onDisconnected: errorLabel.showError(qsTr("Connection was lost!"))
+        function onLoginFailed(errorMessage) { errorLabel.showError(errorMessage); }
+        function onRegistrationFailed(errorMessage) { errorLabel.showError(errorMessage); }
+        function onDisconnected() { errorLabel.showError(qsTr("Connection was lost!")); }
     }
 
     Image {
@@ -201,7 +201,7 @@ Item {
             color: "white";
         }
 
-        Button {
+        ManaButton {
             id: registerButton;
             anchors.verticalCenter: parent.verticalCenter;
             anchors.verticalCenterOffset: 2;

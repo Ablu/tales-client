@@ -39,6 +39,7 @@ class MonsterInfo;
 class MonsterDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(QList<const MonsterInfo*> monsters READ monsters NOTIFY monstersChanged)
 

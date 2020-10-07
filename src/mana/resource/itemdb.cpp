@@ -46,7 +46,7 @@ QList<ItemInfo*> ItemDB::items() const
     return mItems.values();
 }
 
-static ItemInfo::Type itemTypeFromString(const QStringRef &name)
+static ItemInfo::Type itemTypeFromString(const QStringView &name)
 {
     if      (name == "generic")         return ItemInfo::ITEM_UNUSABLE;
     else if (name == "usable")          return ItemInfo::ITEM_USABLE;
@@ -68,7 +68,7 @@ static ItemInfo::Type itemTypeFromString(const QStringRef &name)
     return ItemInfo::ITEM_UNUSABLE;
 }
 
-static BeingGender genderFromString(const QStringRef &gender)
+static BeingGender genderFromString(const QStringView &gender)
 {
     if      (gender == "male")          return GENDER_MALE;
     else if (gender == "female")        return GENDER_FEMALE;
@@ -194,7 +194,7 @@ ItemInfo *ItemDB::readItem(XmlReader &xml)
 //            effects.append(stat.format.arg(value));
 //    }
 
-    const QStringRef temp = attr.value("effect");
+    const QStringView &temp = attr.value("effect");
     if (!temp.isEmpty())
         effects.append(temp.toString());
 

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 Item {
@@ -8,7 +8,7 @@ Item {
     ListModel { id: chatModel }
     Connections {
         target: gameClient
-        onChatMessage: {
+        function onChatMessage(message) {
             var name = being ? being.name : qsTr("Server");
             chatModel.insert(0, { name: name, message: message });
             chatView.positionViewAtBeginning();

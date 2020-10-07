@@ -21,12 +21,14 @@
 
 #include <QAbstractListModel>
 #include <QPoint>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class Drop : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(unsigned id READ id CONSTANT)
     Q_PROPERTY(QPoint position READ position CONSTANT)
@@ -46,6 +48,7 @@ private:
 class DropListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum SpriteRoles {

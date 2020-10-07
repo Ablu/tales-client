@@ -20,6 +20,7 @@
 #define ACCOUNTCLIENT_H
 
 #include "character.h"
+#include "characterlistmodel.h"
 #include "enetclient.h"
 
 #include <QMap>
@@ -34,6 +35,7 @@ class CharacterListModel;
 class AccountClient : public ENetClient
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(AccountClient)
 
     Q_PROPERTY(bool registrationAllowed READ registrationAllowed NOTIFY registrationInfoChanged)
     Q_PROPERTY(int minimumNameLength READ minimumNameLength NOTIFY registrationInfoChanged)

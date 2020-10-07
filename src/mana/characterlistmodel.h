@@ -20,6 +20,7 @@
 #define CHARACTERLISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 namespace Mana {
 
@@ -28,6 +29,7 @@ class Character;
 class CharacterListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum CharacterRoles {

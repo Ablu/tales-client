@@ -22,12 +22,14 @@
 
 #include <QObject>
 #include <QSettings>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class Settings : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Settings)
 
 public:
     explicit Settings(QObject *parent = 0);

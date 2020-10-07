@@ -21,6 +21,7 @@
 
 #include <QMap>
 #include <QObject>
+#include <QQmlEngine>
 
 namespace Mana {
 
@@ -29,6 +30,8 @@ class Animation;
 class Action : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Action)
+    QML_UNCREATABLE("Managed on C++ side")
 
     Q_ENUMS(SpriteDirection)
 

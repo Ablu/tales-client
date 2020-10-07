@@ -20,12 +20,14 @@
 #define ABILITYLISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class Ability : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(unsigned id READ id CONSTANT)
     Q_PROPERTY(unsigned remainingMilliseconds READ remainingMilliseconds NOTIFY remainingMillisecondsChanged)
@@ -49,6 +51,7 @@ private:
 class AbilityListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum SpriteRoles {

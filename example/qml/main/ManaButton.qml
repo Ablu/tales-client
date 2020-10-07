@@ -42,11 +42,7 @@ import QtQuick.Templates 2.12 as T
 T.Button {
     id: control
 
-    property string baseName: "images/roundbutton"
-    property alias imagePath: image.source
-
-    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
-                            implicitContentWidth + leftPadding + rightPadding)
+    implicitWidth: Math.max(sizeLabel.width + 20 + 20, 200);
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
                              implicitContentHeight + topPadding + bottomPadding)
 
@@ -59,30 +55,64 @@ T.Button {
     icon.color: control.checked || control.highlighted ? control.palette.brightText :
                 control.flat && !control.down ? (control.visualFocus ? control.palette.highlight : control.palette.windowText) : control.palette.buttonText
 
-    contentItem: Image {
-        id: image
-        smooth: false;
-        anchors.centerIn: parent;
-    }
-
-    background: Image {
-        smooth: false;
-        source: {
-            if (control.pressed)
-                return baseName + "_pressed.png";
-            return baseName + ".png";
+    contentItem: Item {
+        TextShadow {
+            target: label;
+            color: "white";
+            opacity: 0.7;
         }
-    }
+        Text {
+            id: label
+            text: control.text
+            anchors.centerIn: parent
+            font.pixelSize: (control.height - 10) * 0.7;
+            opacity: 0.8;
+        }
 
-    states: [
-        State {
-            name: "pressed"
-            when: control.pressed
-            PropertyChanges {
-                target: control;
-                anchors.horizontalCenterOffset: 1;
-                anchors.verticalCenterOffset: 1;
+        states: [
+            State {
+                name: "pressed"
+                when: control.pressed
+                PropertyChanges {
+                    target: label
+                    anchors.horizontalCenterOffset: 1
+                    anchors.verticalCenterOffset: 1
+                }
+            },
+            State {
+                name: "disabled"
+                when: !control.enabled
+                PropertyChanges {
+                    target: label;
+                    opacity: 0.7;
+                }
             }
+        ]
+    }
+
+    background: BorderImage {
+        source: {
+            const baseName = "images/bigbutton";
+            if (control.pressed)
+                baseName + "_pressed.png";
+            else if (!control.enabled)
+                baseName + "_disabled.png";
+            else if (control.hovered || control.activeFocus)
+                baseName + "_hovered.png";
+            else
+                baseName + ".png";
         }
-    ]
+
+        border.bottom: 20;
+        border.top: 26;
+        border.right: 100;
+        border.left: 100;
+    }
+
+    Text {
+        id: sizeLabel
+        visible: false
+        text: control.text
+        font.pixelSize: (control.height - 10) * 0.7;
+    }
 }

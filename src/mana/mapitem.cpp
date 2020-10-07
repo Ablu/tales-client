@@ -214,7 +214,7 @@ void MapItem::updateFringeLayer()
 
     // Create tile items for the newly visible area
     const QRegion n = QRegion(tileArea).subtracted(mVisibleFringeTiles);
-    foreach (const QRect &r, n.rects()) {
+    for (const QRect &r : n) {
         for (int y = r.top(); y <= r.bottom(); ++y) {
             for (int x = r.left(); x <= r.right(); ++x) {
                 const Tiled::Cell &cell = mFringeLayer->cellAt(x, y);

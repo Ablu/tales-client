@@ -23,6 +23,7 @@
 #include <QMap>
 #include <QSet>
 #include <QStringList>
+#include <QQmlEngine>
 
 #include "action.h"
 #include "resource.h"
@@ -41,6 +42,7 @@ class ImageResource;
 class SpriteReference : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(SpriteReference)
 
     Q_PROPERTY(QString sprite READ sprite WRITE setSprite NOTIFY spriteChanged)
     Q_PROPERTY(int variant READ variant WRITE setVariant NOTIFY variantChanged)

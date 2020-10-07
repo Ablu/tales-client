@@ -41,7 +41,7 @@
         <file>qml/main/ChatLog.qml</file>
         <file>qml/main/ChatBar.qml</file>
         <file>qml/main/CharacterPage.qml</file>
-        <file>qml/main/Button.qml</file>
+        <file>qml/main/ManaButton.qml</file>
         <file>qml/main/BrownButton.qml</file>
         <file>qml/main/BlueButton.qml</file>
         <file>qml/main/AttributeList.qml</file>

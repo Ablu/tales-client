@@ -18,6 +18,8 @@
 
 #include "spritelistmodel.h"
 
+#include "resource/spritedef.h"
+
 using namespace Mana;
 
 SpriteListModel::SpriteListModel(QObject *parent) :

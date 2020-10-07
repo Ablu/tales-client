@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 /**
@@ -50,7 +50,7 @@ QtObject {
      */
     property QtObject connections: Connections {
         target: gameClient.attributeListModel;
-        onAttributeAdded: bindAttribute(id, attribute);
+        function onAttributeAdded(id, attribute) { bindAttribute(id, attribute); }
     }
 
     function bindAttribute(id, attribute) {

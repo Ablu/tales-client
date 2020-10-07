@@ -18,8 +18,6 @@
 
 #include "npc.h"
 
-#include "spritelistmodel.h"
-
 #include "resource/npcdb.h"
 
 using namespace Mana;

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 /**
@@ -66,7 +66,7 @@ Rectangle {
     Component.onCompleted: resetSmoothFollow();
     Connections {
         target: gameClient;
-        onMapChanged: resetSmoothFollow();
+        function onMapChanged() { resetSmoothFollow(); }
     }
 
     TileMap {
@@ -178,9 +178,9 @@ Rectangle {
 
                 Connections {
                     target: model.being;
-                    onAbilityUsed: sprite.restartAction();
-                    onChatMessage: chatLabel.showText(message);
-                    onDamageTaken: {
+                    function onAbilityUsed() { sprite.restartAction(); }
+                    function onChatMessage(message) { chatLabel.showText(message); }
+                    function onDamageTaken(amount) {
                         console.log(being.name + " takes " + amount + " damage")
                         hitAnimation.restart()
                     }

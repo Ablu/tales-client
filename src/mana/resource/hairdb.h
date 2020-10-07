@@ -76,6 +76,7 @@ private:
 class HairInfo : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)

@@ -40,6 +40,7 @@ class ItemInfo;
 class ItemDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(QList<Mana::ItemInfo*> items READ items NOTIFY itemsChanged)
 
@@ -94,6 +95,7 @@ private:
 class ItemInfo : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(ItemInfo::Type type READ type CONSTANT)

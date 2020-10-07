@@ -37,6 +37,7 @@ namespace Mana {
 class NpcDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     explicit NpcDB(QObject *parent);

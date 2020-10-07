@@ -18,8 +18,6 @@
 
 #include "monster.h"
 
-#include "spritelistmodel.h"
-
 #include "resource/monsterdb.h"
 
 using namespace Mana;

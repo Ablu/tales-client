@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 BorderImage {
@@ -101,7 +101,7 @@ BorderImage {
                 id: nextButton;
 
                 property bool waitingForReply: false
-                iconSource: "images/icon_right.png"
+                icon.source: "images/icon_right.png"
                 keepPressed: waitingForReply;
 
                 anchors.right: parent.right
@@ -156,7 +156,7 @@ BorderImage {
 
                     Connections {
                         target: gameClient;
-                        onNpcStateChanged: {
+                        function onNpcStateChanged() {
                             nextButton.waitingForReply = false;
                             if (gameClient.npcState === GameClient.NpcAwaitNumberInput) {
                                 numberInput.text = gameClient.npcDefaultNumber;

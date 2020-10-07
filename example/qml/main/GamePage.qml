@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 Item {
@@ -119,16 +119,16 @@ Item {
 
     Connections {
         target: gameClient
-        onShopOpened: {
+        function onShopOpened() {
             leftPanel.isShopAccessible = true;
             rightPanel.open("inventory");
             lastNpcInteractionX = gameClient.player.x;
             lastNpcInteractionY = gameClient.player.y;
         }
-        onMapChanged: {
+        function onMapChanged() {
             leftPanel.isShopAccessible = false;
         }
-        onPlayerDied: {
+        function onPlayerDied() {
             leftPanel.isShopAccessible = false;
         }
     }
@@ -136,7 +136,7 @@ Item {
     Connections {
         target: gameClient.player
 
-        onPositionChanged: {
+        function onPositionChanged() {
             if (!leftPanel.isShopAccessible)
                 return;
 
@@ -146,10 +146,6 @@ Item {
             if (distance > 3 * 32)
                 leftPanel.isShopAccessible = false;
         }
-    }
-
-    Connections {
-        target: gameClient
     }
 
     Keys.onReturnPressed: {

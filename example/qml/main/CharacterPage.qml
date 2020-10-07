@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 Item {
@@ -137,17 +137,17 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         spacing: 10
 
-        Button {
+        ManaButton {
             text: qsTr("Delete")
             onClicked: confirmDialog.visible = true
             enabled: characterList.currentIndex >= 0 && characterList.count > 0 && !characterChosen
         }
-        Button {
+        ManaButton {
             text: qsTr("New");
             onClicked: window.state = "createCharacter";
             enabled: characterList.count < accountClient.maxCharacters && !characterChosen
         }
-        Button {
+        ManaButton {
             text: qsTr("Play")
             onClicked: chooseCharacter()
             enabled: characterList.currentIndex >= 0 && characterList.count > 0 && !characterChosen
@@ -166,16 +166,16 @@ Item {
 
     Connections {
         target: accountClient;
-        onChooseCharacterFailed: {
+        function onChooseCharacterFailed(errorMessage) {
             window.characterChosen = false;
             errorLabel.showError(errorMessage);
             console.log(errorMessage);
         }
-        onDeleteCharacterFailed: {
+        function onDeleteCharacterFailed(errorMessage) {
             deletingCharacter = false;
             errorLabel.showError(errorMessage);
             console.log(errorMessage);
         }
-        onDeleteCharacterSucceeded: deletingCharacter = false;
+        function onDeleteCharacterSucceeded() { deletingCharacter = false; }
     }
 }

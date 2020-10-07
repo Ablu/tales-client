@@ -25,12 +25,14 @@
 #include "protocol.h"
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class ItemInstance : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(unsigned slot READ slot CONSTANT)
     Q_PROPERTY(unsigned id READ id CONSTANT)
@@ -67,6 +69,7 @@ private:
 class InventoryListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
     Q_ENUMS(ItemRoles)
 
 public:

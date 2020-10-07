@@ -16,12 +16,10 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef SPRITELISTMODEL_H
-#define SPRITELISTMODEL_H
+#pragma once
 
 #include <QAbstractListModel>
-
-#include "resource/spritedef.h"
+#include <QQmlEngine>
 
 namespace Mana {
 
@@ -30,6 +28,7 @@ class SpriteReference;
 class SpriteListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum SpriteRoles {
@@ -55,5 +54,3 @@ private:
 };
 
 }
-
-#endif // SPRITELISTMODEL_H

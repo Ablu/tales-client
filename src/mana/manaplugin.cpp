@@ -17,8 +17,6 @@
  * along with this library; if not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "manaplugin.h"
-
 #include "abilitylistmodel.h"
 #include "accountclient.h"
 #include "attributelistmodel.h"
@@ -48,106 +46,53 @@
 #include "resource/racedb.h"
 
 #include <QQmlEngine>
+#include <QQmlEngineExtensionPlugin>
 #include <QQmlContext>
 
-ManaPlugin::ManaPlugin(QObject *parent) :
-    QQmlExtensionPlugin(parent)
+extern void qml_register_types_Mana();
+
+class ManaPlugin : public QQmlEngineExtensionPlugin
 {
-}
+    Q_OBJECT
+    Q_PLUGIN_METADATA(IID QQmlEngineExtensionInterface_iid)
 
-void ManaPlugin::initializeEngine(QQmlEngine *engine, const char *uri)
-{
-    Q_UNUSED(uri)
+public:
+    explicit ManaPlugin(QObject *parent = nullptr)
+        : QQmlEngineExtensionPlugin(parent)
+    {
+        // ensure that this is not optimized away by the linker
+        volatile auto registration = &qml_register_types_Mana;
+        Q_UNUSED(registration);
+    }
 
-    Q_INIT_RESOURCE(mana);
-    engine->addImportPath("qrc:/mana/qml/");
+public:
+    void initializeEngine(QQmlEngine *engine, const char *uri) override
+    {
+        QQmlEngineExtensionPlugin::initializeEngine(engine, uri);
 
-    Mana::ResourceManager *resourceManager = new Mana::ResourceManager(engine);
-    Mana::AbilityDB *abilityDB = new Mana::AbilityDB(engine);
-    Mana::AttributeDB *attributeDB = new Mana::AttributeDB(engine);
-    Mana::HairDB *hairDB = new Mana::HairDB(engine);
-    Mana::ItemDB *itemDB = new Mana::ItemDB(engine);
-    Mana::MonsterDB *monsterDB = new Mana::MonsterDB(engine);
-    Mana::NpcDB *npcDB = new Mana::NpcDB(engine);
-    Mana::RaceDB *raceDB = new Mana::RaceDB(engine);
+        Mana::ResourceManager *resourceManager = new Mana::ResourceManager(engine);
+        Mana::AbilityDB *abilityDB = new Mana::AbilityDB(engine);
+        Mana::AttributeDB *attributeDB = new Mana::AttributeDB(engine);
+        Mana::HairDB *hairDB = new Mana::HairDB(engine);
+        Mana::ItemDB *itemDB = new Mana::ItemDB(engine);
+        Mana::MonsterDB *monsterDB = new Mana::MonsterDB(engine);
+        Mana::NpcDB *npcDB = new Mana::NpcDB(engine);
+        Mana::RaceDB *raceDB = new Mana::RaceDB(engine);
 
-    QQmlContext *context = engine->rootContext();
-    context->setContextProperty("resourceManager", resourceManager);
-    context->setContextProperty("abilityDB", abilityDB);
-    context->setContextProperty("attributeDB", attributeDB);
-    context->setContextProperty("hairDB", hairDB);
-    context->setContextProperty("itemDB", itemDB);
-    context->setContextProperty("monsterDB", monsterDB);
-    context->setContextProperty("npcDB", npcDB);
-    context->setContextProperty("raceDB", raceDB);
+        QQmlContext *context = engine->rootContext();
+        context->setContextProperty("resourceManager", resourceManager);
+        context->setContextProperty("abilityDB", abilityDB);
+        context->setContextProperty("attributeDB", attributeDB);
+        context->setContextProperty("hairDB", hairDB);
+        context->setContextProperty("itemDB", itemDB);
+        context->setContextProperty("monsterDB", monsterDB);
+        context->setContextProperty("npcDB", npcDB);
+        context->setContextProperty("raceDB", raceDB);
 
-    int errorCode = enet_initialize();
-    Q_ASSERT(errorCode == 0);
-    atexit(enet_deinitialize);
-}
+        int errorCode = enet_initialize();
+        Q_ASSERT(errorCode == 0);
+        atexit(enet_deinitialize);
+    }
+};
 
-void ManaPlugin::registerTypes(const char *uri)
-{
-    // @uri Mana
-    Q_ASSERT(uri == QLatin1String("Mana"));
-
-    qmlRegisterUncreatableType<Mana::ENetClient>(uri, 1, 0, "ENetClient",
-                                                 "Use a derived class");
-
-    qmlRegisterType<Mana::AccountClient>(uri, 1, 0, "AccountClient");
-    qmlRegisterType<Mana::ChatClient>(uri, 1, 0, "ChatClient");
-    qmlRegisterType<Mana::GameClient>(uri, 1, 0, "GameClient");
-    qmlRegisterType<Mana::Settings>(uri, 1, 0, "Settings");
-    qmlRegisterType<Mana::SpriteItem>(uri, 1, 0, "Sprite");
-    qmlRegisterUncreatableType<Mana::Action>(uri, 1, 0, "Action",
-                                             "Only exposed for direction enum");
-
-    qmlRegisterType<Mana::CharacterListModel>();
-    qmlRegisterType<Mana::BeingListModel>();
-    qmlRegisterUncreatableType<Mana::Being>(uri, 1, 0, "Being",
-                                            "Managed on C++ side");
-    qmlRegisterType<Mana::Character>(uri, 1, 0, "Character");
-
-    qmlRegisterType<Mana::SpriteListModel>();
-    qmlRegisterType<Mana::SpriteReference>(uri, 1, 0, "SpriteReference");
-
-    qmlRegisterType<Mana::AbilityListModel>();
-
-    qmlRegisterType<Mana::AttributeListModel>();
-    qmlRegisterType<Mana::AttributeInfo>();
-    qmlRegisterType<Mana::AttributeValue>();
-
-    qmlRegisterType<Mana::Drop>();
-    qmlRegisterType<Mana::DropListModel>();
-
-    qmlRegisterType<Mana::InventoryListModel>();
-    qmlRegisterType<Mana::ShopListModel>();
-
-    qmlRegisterType<Mana::ResourceManager>();
-    qmlRegisterUncreatableType<Mana::Resource>(uri, 1, 0, "Resource",
-                                               "Base of all resources");
-    qmlRegisterType<Mana::MapResource>();
-    qmlRegisterType<Mana::ResourceListModel>();
-
-    qmlRegisterUncreatableType<Mana::Quest>(uri, 1, 0, "Quest",
-                                            "Managed on C++ side");
-    qmlRegisterType<Mana::QuestlogListModel>();
-
-    qmlRegisterType<Mana::Ability>();
-    qmlRegisterType<Mana::AbilityDB>();
-    qmlRegisterUncreatableType<Mana::AbilityInfo>(uri, 1, 0, "AbilityInfo",
-                                                  "Managed on C++ side");
-
-    qmlRegisterType<Mana::AttributeDB>();
-
-    qmlRegisterType<Mana::ItemDB>();
-    qmlRegisterType<Mana::ItemInfo>();
-    qmlRegisterType<Mana::ItemInstance>();
-
-    qmlRegisterType<Mana::MonsterDB>();
-    qmlRegisterType<Mana::NpcDB>();
-    qmlRegisterType<Mana::RaceDB>();
-    qmlRegisterType<Mana::HairInfo>();
-
-    qmlRegisterType<Mana::MapItem>(uri, 1, 0, "TileMap");
-}
+#include "manaplugin.moc"

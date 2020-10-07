@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
 FocusScope {
@@ -66,7 +66,7 @@ FocusScope {
             }
         ]
     }
-    Button {
+    ManaButton {
         id: sayButton;
         anchors.right: parent.right;
         anchors.verticalCenter: chatInput.verticalCenter;

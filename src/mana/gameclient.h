@@ -19,8 +19,6 @@
 #ifndef GAMECLIENT_H
 #define GAMECLIENT_H
 
-#include "enetclient.h"
-
 #include <QDateTime>
 #include <QElapsedTimer>
 #include <QPoint>
@@ -28,21 +26,25 @@
 #include <QVariantList>
 #include <QVector2D>
 
+#include "abilitylistmodel.h"
+#include "attributelistmodel.h"
+#include "beinglistmodel.h"
+#include "character.h"
+#include "droplistmodel.h"
+#include "enetclient.h"
+#include "inventorylistmodel.h"
+#include "questloglistmodel.h"
+#include "shoplistmodel.h"
+
+#include "resource/mapresource.h"
+
 namespace Mana {
 
 class AbilityListModel;
-class AttributeListModel;
 class Being;
-class BeingListModel;
-class Character;
 class Drop;
-class DropListModel;
-class InventoryListModel;
 class LogicDriver;
-class MapResource;
 class NPC;
-class QuestlogListModel;
-class ShopListModel;
 
 /**
  * The game client allows interacting with the game server.
@@ -53,6 +55,7 @@ class ShopListModel;
 class GameClient : public ENetClient
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(GameClient)
 
     Q_PROPERTY(bool authenticated READ authenticated NOTIFY authenticatedChanged)
     Q_PROPERTY(QByteArray token READ token NOTIFY tokenReceived)

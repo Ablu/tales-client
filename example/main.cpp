@@ -26,17 +26,11 @@
 #include <QQuickWindow>
 #include <QScreen>
 #include <QSslSocket>
+#include <QtPlugin>
 #include <QCommandLineParser>
 #include <QDirIterator>
 
-#include "mana/manaplugin.h"
-
-static void registerManaPlugin(QQmlApplicationEngine& engine)
-{
-    ManaPlugin manaPlugin;
-    manaPlugin.registerTypes("Mana");
-    manaPlugin.initializeEngine(&engine, "Mana");
-}
+Q_IMPORT_PLUGIN(ManaPlugin)
 
 int main(int argc, char *argv[])
 {
@@ -103,7 +97,8 @@ int main(int argc, char *argv[])
     context->setContextProperty(
         "characterIndex", commandLineParser.value("character").toInt());
 
-    registerManaPlugin(engine);
+    // add mana plugin
+    engine.addImportPath(":/mana/qml/");
 
     engine.addImportPath("qrc:/qml/main/");
     engine.load(QStringLiteral("qrc:/qml/main/mobile.qml"));
@@ -113,8 +108,6 @@ int main(int argc, char *argv[])
         qWarning() << "no window";
         return -1;
     }
-
-    window->setClearBeforeRendering(false);
 
 #ifdef Q_OS_LINUX_TIZEN
     window->setProperty("contentFollowsContentOrientation", true);

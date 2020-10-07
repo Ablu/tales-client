@@ -21,6 +21,7 @@
 #define RESOURCE_H
 
 #include <QObject>
+#include <QQmlEngine>
 #include <QUrl>
 
 namespace Mana {
@@ -28,6 +29,8 @@ namespace Mana {
 class Resource : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Resource)
+    QML_UNCREATABLE("Managed on C++ side")
 
     Q_ENUMS(Status)
 

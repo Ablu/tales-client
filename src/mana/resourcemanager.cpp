@@ -21,7 +21,6 @@
 
 #include <QDateTime>
 #include <QStandardPaths>
-#include <QNetworkConfigurationManager>
 #include <QNetworkDiskCache>
 #include <QNetworkReply>
 #include <QNetworkRequest>
@@ -46,13 +45,6 @@ ResourceManager::ResourceManager(QObject *parent)
     , mPathsLoaded(false)
     , mResourceListModel(new ResourceListModel(this))
 {
-    // TODO: This takes about 400 ms on my system. Doing it here prevents
-    // experiencing this hickup later on when the the network access manager is
-    // used for the first time. Even on startup it's ugly though, so hopefully
-    // there's a way to avoid it completely...
-    QNetworkConfigurationManager manager;
-    mNetworkAccessManager.setConfiguration(manager.defaultConfiguration());
-
     // Use a disk cache to avoid re-downloading data all the time
     QString cacheLocation =
             QStandardPaths::writableLocation(QStandardPaths::CacheLocation);
@@ -118,8 +110,8 @@ void ResourceManager::pathsFileFinished()
     while (xml.readNextStartElement()) {
         if (xml.name() == "option") {
             const QXmlStreamAttributes atts = xml.attributes();
-            const QStringRef name = atts.value("name");
-            const QStringRef value = atts.value("value");
+            const QStringView name = atts.value("name");
+            const QStringView value = atts.value("value");
 
             if (!name.isEmpty())
                 mPaths[name.toString()] = value.toString();

@@ -21,6 +21,7 @@
 
 #include <QAbstractListModel>
 #include <QVector>
+#include <QQmlEngine>
 
 namespace Mana {
 
@@ -34,6 +35,7 @@ struct TradedItem
 class ShopListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum AttributeRoles {

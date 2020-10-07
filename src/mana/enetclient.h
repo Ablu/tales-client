@@ -19,11 +19,11 @@
 #ifndef ENETCLIENT_H
 #define ENETCLIENT_H
 
+#include <QHostInfo>
 #include <QObject>
+#include <QQmlEngine>
 
 #include <enet/enet.h>
-
-class QHostInfo;
 
 namespace Mana {
 
@@ -40,6 +40,8 @@ class MessageOut;
 class ENetClient : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(ENetClient)
+    QML_UNCREATABLE("Use a derived class")
 
     Q_PROPERTY(State state READ state NOTIFY stateChanged)
     Q_PROPERTY(bool connected READ isConnected NOTIFY stateChanged)

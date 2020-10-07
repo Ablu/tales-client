@@ -19,6 +19,8 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
+#include <QQmlEngine>
+
 #include "being.h"
 
 namespace Mana {
@@ -26,6 +28,7 @@ namespace Mana {
 class Character : public Being
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Character)
 
     Q_PROPERTY(int hairStyle READ hairStyle WRITE setHairStyle NOTIFY hairChanged)
     Q_PROPERTY(int hairColor READ hairColor WRITE setHairColor NOTIFY hairChanged)

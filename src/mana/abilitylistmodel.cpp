@@ -18,6 +18,7 @@
 
 #include "abilitylistmodel.h"
 
+#include <QtAlgorithms>
 #include <QTimerEvent>
 
 #include "resource/abilitydb.h"
@@ -86,10 +87,10 @@ void AbilityListModel::setAbilityStatus(unsigned id,
     if (!existed) {
         int index;
         if (AbilityDB::instance()->isLoaded()) {
-            QList<Ability *>::iterator it = qLowerBound(mAbilitiesList.begin(),
-                                                        mAbilitiesList.end(),
-                                                        ability,
-                                                        abilityLessThan);
+            QList<Ability *>::iterator it = std::lower_bound(mAbilitiesList.begin(),
+                                                             mAbilitiesList.end(),
+                                                             ability,
+                                                             abilityLessThan);
             index = it - mAbilitiesList.begin();
         } else {
             index = mAbilitiesList.size();
@@ -142,7 +143,7 @@ void AbilityListModel::timerEvent(QTimerEvent *event)
 void AbilityListModel::sortByPriority()
 {
     beginResetModel();
-    qSort(mAbilitiesList.begin(), mAbilitiesList.end(), abilityLessThan);
+    std::sort(mAbilitiesList.begin(), mAbilitiesList.end(), abilityLessThan);
     endResetModel();
 }
 

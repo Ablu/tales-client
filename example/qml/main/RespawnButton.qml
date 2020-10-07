@@ -1,7 +1,7 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import Mana 1.0
 
-Button {
+ManaButton {
     id: respawnButton
     text: "Respawn"
     opacity: 0

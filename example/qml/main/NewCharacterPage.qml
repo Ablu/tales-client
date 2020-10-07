@@ -1,4 +1,4 @@
-import QtQuick 2.1
+import QtQuick 2.12
 import Mana 1.0
 
 Item {
@@ -71,28 +71,28 @@ Item {
         onAccepted: createCharacter()
     }
 
-    Button {
+    ManaButton {
         text: qsTr(">")
         anchors.verticalCenter: parent.verticalCenter
         anchors.right: parent.right
         onClicked: nextHairStyle()
     }
 
-    Button {
+    ManaButton {
         text: qsTr("<")
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         onClicked: previousHairStyle()
     }
 
-    Button {
+    ManaButton {
         text: qsTr("Back")
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         onClicked: window.state = "chooseCharacter"
     }
 
-    Button {
+    ManaButton {
         text: qsTr("Create")
         anchors.bottom: parent.bottom
         anchors.right: parent.right
@@ -102,15 +102,15 @@ Item {
 
     Connections {
         target: accountClient
-        onCreateCharacterSucceeded: {
+        function onCreateCharacterSucceeded(index) {
             window.characterChosen = true;
             accountClient.chooseCharacter(index);
         }
-        onCreateCharacterFailed: {
+        function onCreateCharacterFailed(error, errorMessage) {
             errorLabel.showError(errorMessage)
             creatingCharacter = false;
         }
-        onChooseCharacterFailed: {
+        function onChooseCharacterFailed(error, errorMessage) {
             errorLabel.showError(errorMessage);
             window.characterChosen = false;
             creatingCharacter = false;

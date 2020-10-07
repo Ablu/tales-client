@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Layouts 1.0
+import QtQuick 2.12
+import QtQuick.Layouts 1.12
 
 GridLayout {
     columns: 2
@@ -103,6 +103,7 @@ GridLayout {
                 var max = Math.round(base + playerAttributes.damageDelta);
                 return min + "-" + max;
             }
+            Layout.fillWidth: true;
         }
 
         Layout.row: 0
@@ -132,11 +133,13 @@ GridLayout {
         AttributeLabel {
             name: qsTr("Movement speed")
             value: limitPrecision(playerAttributes.movementSpeed, 1)
+            Layout.fillWidth: true;
         }
 
         AttributeLabel {
             name: qsTr("Dodge")
             value: limitPrecision(playerAttributes.dodge, 1)
+            Layout.fillWidth: true;
         }
 
         Layout.row: 1
@@ -164,6 +167,7 @@ GridLayout {
         AttributeLabel {
             name: qsTr("Hit chance")
             value: limitPrecision(playerAttributes.hitChance, 1)
+            Layout.fillWidth: true;
         }
 
         Layout.row: 3
@@ -193,16 +197,19 @@ GridLayout {
         AttributeLabel {
             name: qsTr("Health")
             value: playerAttributes.maxHealth
+            Layout.fillWidth: true;
         }
 
         AttributeLabel {
             name: qsTr("Regeneration")
             value: limitPrecision(playerAttributes.healthRegeneration / 10, 2) + "/s"
+            Layout.fillWidth: true;
         }
 
         AttributeLabel {
             name: qsTr("Defense")
             value: limitPrecision(playerAttributes.defense, 1)
+            Layout.fillWidth: true;
         }
 
         Layout.row: 4

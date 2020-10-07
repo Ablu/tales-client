@@ -23,13 +23,15 @@
 #include <QHash>
 #include <QNetworkAccessManager>
 #include <QNetworkRequest>
+#include <QQmlEngine>
+
+#include "resourcelistmodel.h"
 
 namespace Mana {
 
 class ImageResource;
 class MapResource;
 class Resource;
-class ResourceListModel;
 class SpriteDefinition;
 
 /**
@@ -39,6 +41,7 @@ class SpriteDefinition;
 class ResourceManager : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(QString dataUrl READ dataUrl WRITE setDataUrl NOTIFY dataUrlChanged)
     Q_PROPERTY(bool pathsLoaded READ pathsLoaded NOTIFY pathsLoadedChanged)

@@ -1,11 +1,9 @@
-import QtQuick 2.0
+import QtQuick 2.12
 
 Item {
     property alias name: nameLabel.text
     property alias value: valueLabel.text
 
-    anchors.left: parent.left
-    anchors.right: parent.right
     height: 14
 
     Rectangle {

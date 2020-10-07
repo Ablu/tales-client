@@ -24,12 +24,14 @@
 
 #include <QQuickItem>
 #include <QElapsedTimer>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class SpriteItem : public QQuickItem
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Sprite)
 
     Q_PROPERTY(Mana::SpriteReference *spriteReference READ spriteRef WRITE setSpriteRef NOTIFY spriteRefChanged)
     Q_PROPERTY(QString action READ action WRITE setAction NOTIFY actionChanged)

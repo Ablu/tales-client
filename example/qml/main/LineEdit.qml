@@ -1,6 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 1.0
-import QtQuick.Controls.Styles 1.0
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 /**
  * A TextField in Mana style
@@ -8,20 +7,15 @@ import QtQuick.Controls.Styles 1.0
 TextField {
     anchors.margins: 5;
 
-    font.pixelSize: (height - 10) * 0.7;
+    font.pixelSize: (childrenRect.height - 10) * 0.7;
 
-    textColor: "black"
+    color: "black"
 
-    style: TextFieldStyle {
-        background: BorderImage {
-            source: "images/lineedit.png"
-            border.bottom: 20;
-            border.top: 20;
-            border.right: 20;
-            border.left: 20;
-        }
-
-        padding.right: 12
-        padding.left: 12
+    background: BorderImage {
+        source: "images/lineedit.png"
+        border.bottom: 20;
+        border.top: 20;
+        border.right: 20;
+        border.left: 20;
     }
 }

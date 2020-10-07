@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick 2.12
+import QtQuick.Window 2.12
 import Mana 1.0
 
 Image {
@@ -41,7 +41,7 @@ Image {
 
     Connections {
         target: client
-        onLoggedInChanged: {
+        function onLoggedInChanged() {
             if (client.loggedIn) {
                 if (resourceManager.pathsLoaded)
                     switchToChooseCharacter()
@@ -49,19 +49,19 @@ Image {
                     state = "loadingPaths";
             }
         }
-        onReconnectFailed: initialize()
+        function onReconnectFailed() { initialize() }
     }
 
     Connections {
         target: accountClient
-        onConnected: {
+        function onConnected() {
             if (!client.reconnecting) {
                 if (userName !== "" && password !== "")
                     accountClient.login(userName, password);
                 state = "login";
             }
         }
-        onLoggedOut: {
+        function onLoggedOut() {
             if (state === "game")
                 accountClient.disconnect();
         }
@@ -69,7 +69,7 @@ Image {
 
     Connections {
         target: gameClient
-        onDisconnected: {
+        function onDisconnected() {
             if (state === "game") {
                 chatClient.disconnect();
                 accountClient.disconnect();
@@ -80,7 +80,7 @@ Image {
 
     Connections {
         target: resourceManager;
-        onPathsLoadedChanged: {
+        function onPathsLoadedChanged() {
             if (resourceManager.pathsLoaded && state == "loadingPaths")
                 switchToChooseCharacter();
         }
@@ -192,7 +192,7 @@ Image {
     Connections {
         target: gameClient
 
-        onStateChanged: {
+        function onStateChanged() {
             if (window.state === "game" && gameClient.state === ENetClient.Disconnected) {
                 accountClient.disconnect();
                 chatClient.disconnect();

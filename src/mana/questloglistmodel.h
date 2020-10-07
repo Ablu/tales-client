@@ -21,12 +21,15 @@
 
 #include <QAbstractListModel>
 #include <QObject>
+#include <QQmlEngine>
 
 namespace Mana {
 
 class Quest : public QObject
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(Quest)
+    QML_UNCREATABLE("Managed on C++ side")
 
     Q_ENUMS(State)
 
@@ -70,6 +73,7 @@ private:
 class QuestlogListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
 public:
     enum SpriteRoles {

@@ -19,6 +19,8 @@
 #ifndef CHATCLIENT_H
 #define CHATCLIENT_H
 
+#include <QQmlEngine>
+
 #include "enetclient.h"
 
 namespace Mana {
@@ -31,6 +33,7 @@ class ManaClient;
 class ChatClient : public ENetClient
 {
     Q_OBJECT
+    QML_NAMED_ELEMENT(ChatClient)
 
     Q_PROPERTY(bool authenticated READ authenticated NOTIFY authenticatedChanged)
 

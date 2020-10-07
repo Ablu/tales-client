@@ -19,8 +19,6 @@
 
 #include "being.h"
 
-#include "spritelistmodel.h"
-
 #include "resource/spritedef.h"
 
 #include <cmath>

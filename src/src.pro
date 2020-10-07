@@ -1,16 +1,20 @@
 TEMPLATE = lib
-CONFIG += qt plugin staticlib
+CONFIG += c++11 plugin static metatypes qmltypes
 linux*:QMAKE_LFLAGS += $$QMAKE_LFLAGS_NOUNDEF
 
 TARGET = mana
+
+QML_IMPORT_NAME = Mana
+QML_IMPORT_MAJOR_VERSION = 1
+QMAKE_MOC_OPTIONS += -Muri=$$QML_IMPORT_NAME
 
 QT += network qml quick
 
 DEFINES += QT_NO_URL_CAST_FROM_STRING
 
-CONFIG += c++11
-
-INCLUDEPATH += src
+# Qt6 requires this: https://bugreports.qt.io/browse/QTBUG-87221
+INCLUDEPATH += $$PWD/mana
+INCLUDEPATH += $$PWD/mana/resource
 
 # Pretend we're building the Tiled library to make sure it doesn't try to
 # mark the Tiled classes as being imported.
@@ -28,8 +32,6 @@ LIBS += -lz
 }
 
 include(enet/enet.pri)
-
-INCLUDEPATH += .
 
 SOURCES += \
     mana/abilitylistmodel.cpp \
@@ -109,7 +111,6 @@ HEADERS += \
     mana/gameclient.h \
     mana/inventorylistmodel.h \
     mana/logicdriver.h \
-    mana/manaplugin.h \
     mana/mapitem.h \
     mana/messagein.h \
     mana/messageout.h \
@@ -165,8 +166,6 @@ HEADERS += \
     tiled/tile.h \
     tiled/tilelayer.h \
     tiled/tileset.h
-
-INSTALLS += target
 
 RESOURCES += \
     mana.qrc

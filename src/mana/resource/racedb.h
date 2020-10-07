@@ -36,6 +36,7 @@ class RaceInfo;
 class RaceDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(QList<RaceInfo *> races READ races NOTIFY racesChanged)
 

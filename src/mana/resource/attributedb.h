@@ -25,6 +25,7 @@
 #include <QMap>
 #include <QMetaType>
 #include <QObject>
+#include <QQmlEngine>
 
 #include <limits>
 
@@ -37,6 +38,7 @@ namespace Mana {
 class AttributeInfo : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(int id READ id CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
@@ -81,6 +83,7 @@ private:
 class AttributeDB : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(bool isLoaded READ isLoaded NOTIFY attributesChanged)
 

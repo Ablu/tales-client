@@ -20,6 +20,7 @@
 #define ATTRIBUTELISTMODEL_H
 
 #include <QAbstractListModel>
+#include <QQmlEngine>
 
 namespace Mana {
 
@@ -32,6 +33,7 @@ enum {
 class AttributeValue : public QObject
 {
     Q_OBJECT
+    QML_ANONYMOUS
 
     Q_PROPERTY(int attributeId READ attributeId CONSTANT)
     Q_PROPERTY(qreal base READ base NOTIFY baseChanged)
@@ -66,6 +68,7 @@ private:
 class AttributeListModel : public QAbstractListModel
 {
     Q_OBJECT
+    QML_ANONYMOUS
     Q_PROPERTY(int length READ length NOTIFY attributeAdded)
 
 public:

@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 
 /**
  * A big red label which animates when showError() is called on it. Use clear()

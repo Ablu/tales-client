@@ -91,8 +91,8 @@ private:
     TileLayer *readLayer();
     void readLayerData(TileLayer *tileLayer);
     void decodeBinaryLayerData(TileLayer *tileLayer,
-                               const QStringRef &text,
-                               const QStringRef &compression);
+                               const QStringView &text,
+                               const QStringView &compression);
     void decodeCSVLayerData(TileLayer *tileLayer, const QString &text);
 
     /**
@@ -226,7 +226,7 @@ Map *MapReaderPrivate::readMap()
     mMap = new Map(orientation, mapWidth, mapHeight, tileWidth, tileHeight);
     mCreatedTilesets.clear();
 
-    QStringRef bgColorString = atts.value(QLatin1String("backgroundcolor"));
+    QStringView bgColorString = atts.value(QLatin1String("backgroundcolor"));
     if (!bgColorString.isEmpty())
         mMap->setBackgroundColor(QColor(bgColorString.toString()));
 
@@ -488,8 +488,8 @@ void MapReaderPrivate::readTilesetTerrainTypes(Tileset *tileset)
 static void readLayerAttributes(Layer *layer,
                                 const QXmlStreamAttributes &atts)
 {
-    const QStringRef opacityRef = atts.value(QLatin1String("opacity"));
-    const QStringRef visibleRef = atts.value(QLatin1String("visible"));
+    const QStringView opacityRef = atts.value(QLatin1String("opacity"));
+    const QStringView visibleRef = atts.value(QLatin1String("visible"));
 
     bool ok;
     const float opacity = opacityRef.toString().toFloat(&ok);
@@ -532,8 +532,8 @@ void MapReaderPrivate::readLayerData(TileLayer *tileLayer)
     Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("data"));
 
     const QXmlStreamAttributes atts = xml.attributes();
-    QStringRef encoding = atts.value(QLatin1String("encoding"));
-    QStringRef compression = atts.value(QLatin1String("compression"));
+    QStringView encoding = atts.value(QLatin1String("encoding"));
+    QStringView compression = atts.value(QLatin1String("compression"));
 
     bool respect = true; // TODO: init from preferences
     if (respect) {
@@ -596,15 +596,10 @@ void MapReaderPrivate::readLayerData(TileLayer *tileLayer)
 }
 
 void MapReaderPrivate::decodeBinaryLayerData(TileLayer *tileLayer,
-                                             const QStringRef &text,
-                                             const QStringRef &compression)
+                                             const QStringView &text,
+                                             const QStringView &compression)
 {
-#if QT_VERSION < 0x040800
-    const QString textData = QString::fromRawData(text.unicode(), text.size());
-    const QByteArray latin1Text = textData.toLatin1();
-#else
     const QByteArray latin1Text = text.toLatin1();
-#endif
     QByteArray tileData = QByteArray::fromBase64(latin1Text);
     const int size = (tileLayer->width() * tileLayer->height()) * 4;
 
@@ -794,7 +789,7 @@ MapObject *MapReaderPrivate::readObject()
     const int width = atts.value(QLatin1String("width")).toString().toInt();
     const int height = atts.value(QLatin1String("height")).toString().toInt();
     const QString type = atts.value(QLatin1String("type")).toString();
-    const QStringRef visibleRef = atts.value(QLatin1String("visible"));
+    const QStringView visibleRef = atts.value(QLatin1String("visible"));
 
     const QPointF pos = pixelToTileCoordinates(mMap, x, y);
     const QPointF size = pixelToTileCoordinates(mMap, width, height);
@@ -842,7 +837,7 @@ QPolygonF MapReaderPrivate::readPolygon()
     const QXmlStreamAttributes atts = xml.attributes();
     const QString points = atts.value(QLatin1String("points")).toString();
     const QStringList pointsList = points.split(QLatin1Char(' '),
-                                                QString::SkipEmptyParts);
+                                                Qt::SkipEmptyParts);
 
     QPolygonF polygon;
     bool ok = true;

@@ -222,7 +222,7 @@ void SpriteDefinition::readAction(XmlReader &xml)
 
 }
 
-static Action::SpriteDirection directionByName(const QStringRef &name)
+static Action::SpriteDirection directionByName(const QStringView &name)
 {
     if (name.length() == 0 || name == "default")
         return Action::DIRECTION_DEFAULT;
@@ -246,7 +246,7 @@ void SpriteDefinition::readAnimation(XmlReader &xml,
 
     const QXmlStreamAttributes attr = xml.attributes();
 
-    const QStringRef directionName = attr.value("direction");
+    const QStringView &directionName = attr.value("direction");
     const Action::SpriteDirection direction = directionByName(directionName);
     if (direction == Action::DIRECTION_INVALID) {
         qWarning() << Q_FUNC_INFO << "Unknown direction \""
