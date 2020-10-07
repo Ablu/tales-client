@@ -5,6 +5,7 @@ Item {
     anchors.fill: parent
 
     ListView {
+        id: listView
         anchors.fill: parent
         anchors.leftMargin: 5
         anchors.rightMargin: 5
@@ -16,8 +17,7 @@ Item {
         model: itemDB.isLoaded ? gameClient.inventoryListModel : null
 
         delegate: Item {
-            anchors.left: parent.left
-            anchors.right: parent.right
+            width: listView.width
 
             property variant info: itemDB.getInfo(model.item.id)
 

@@ -2,6 +2,7 @@ import QtQuick 2.12
 import Mana 1.0
 
 ListView {
+    id: listView
     anchors.fill: parent
     anchors.leftMargin: 5
     anchors.rightMargin: 5
@@ -13,8 +14,7 @@ ListView {
     model: gameClient.questlogListModel
 
     delegate: Column {
-        anchors.left: parent.left
-        anchors.right: parent.right
+        width: listView.width
 
         Text {
             text: model.quest.title
